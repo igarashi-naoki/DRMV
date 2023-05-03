@@ -1,7 +1,8 @@
 <template>
     <div>
         <button @click="search" type="button" class="btn btn-primary">検索</button>
-        <button @click="search2" type="button" class="btn btn-primary">検索2</button>
+        <button @click="delete_data" type="button" class="btn btn-danger">削除</button>
+       
 
         <table class="table">
             <thead>
@@ -28,25 +29,6 @@
             }
         },
         methods: {
-            search2 (){
-                axios
-                .get('http://localhost:3000/crud/search')
-                .then(
-                    response => {
-                        for (let i=0; i<response.data.length; i++) {
-                            this.items.push(response.data[i]);
-                        }
-                        console.log(this.items);
-                    } 
-                ).catch(
-                    error => {
-                        let errorData1 = {id: 11, name: "Error Tarou"};
-                        let errorData2 = {id: 12, name: "Error Jirou"};
-                        this.items.push(errorData1);
-                        this.items.push(errorData2);
-                    }
-                );
-            },
             search (){
                 axios
                 .get('https://jsonplaceholder.typicode.com/users')
@@ -65,7 +47,11 @@
                         this.items.push(errorData2);
                     }
                 );
-            }
+            },
+            delete_data(){//method名 "delete" は予約語なので、"delete_data" に変更
+                this.items.splice(0);//全てのデータを削除
+
+            },
         }
     }
 </script>
